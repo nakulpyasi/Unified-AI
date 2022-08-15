@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Title | Unified-AI-Blogs</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Title" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Blogs about Deeplearning and ML" />
+<meta property="og:description" content="Blogs about Deeplearning and ML" />
+<link rel="canonical" href="https://nakulpyasi.github.io/Unified-AI/2022/08/14/_NN_FROM_SCRATCH_PYTORCH.html" />
+<meta property="og:url" content="https://nakulpyasi.github.io/Unified-AI/2022/08/14/_NN_FROM_SCRATCH_PYTORCH.html" />
+<meta property="og:site_name" content="Unified-AI-Blogs" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-08-14T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Title" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-14T00:00:00-05:00","datePublished":"2022-08-14T00:00:00-05:00","description":"Blogs about Deeplearning and ML","headline":"Title","mainEntityOfPage":{"@type":"WebPage","@id":"https://nakulpyasi.github.io/Unified-AI/2022/08/14/_NN_FROM_SCRATCH_PYTORCH.html"},"url":"https://nakulpyasi.github.io/Unified-AI/2022/08/14/_NN_FROM_SCRATCH_PYTORCH.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/Unified-AI/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://nakulpyasi.github.io/Unified-AI/feed.xml" title="Unified-AI-Blogs" /><link rel="shortcut icon" type="image/x-icon" href="/Unified-AI/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/Unified-AI/">Unified-AI-Blogs</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/Unified-AI/about/">About Me</a><a class="page-link" href="/Unified-AI/search/">Search</a><a class="page-link" href="/Unified-AI/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-08-14T00:00:00-05:00" itemprop="datePublished">
+        Aug 14, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/nakulpyasi/Unified-AI/tree/master/_notebooks/2022-08-15_NN_FROM_SCRATCH_PYTORCH.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/Unified-AI/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/nakulpyasi/Unified-AI/master?filepath=_notebooks%2F2022-08-15_NN_FROM_SCRATCH_PYTORCH.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Unified-AI/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/nakulpyasi/Unified-AI/blob/master/_notebooks/2022-08-15_NN_FROM_SCRATCH_PYTORCH.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/Unified-AI/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fnakulpyasi%2FUnified-AI%2Fblob%2Fmaster%2F_notebooks%2F2022-08-15_NN_FROM_SCRATCH_PYTORCH.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/Unified-AI/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-08-15_NN_FROM_SCRATCH_PYTORCH.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Same as numpy</span>
+<span class="c1"># The main diff is pytorch works on a gpu</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">58</span><span class="p">,</span><span class="mi">387</span><span class="p">,</span><span class="n">step</span> <span class="o">=</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">inp</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dtype(&#39;float32&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6000</span><span class="p">,</span><span class="mi">9000</span><span class="p">,</span><span class="n">step</span> <span class="o">=</span> <span class="mf">320.7</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">actual</span><span class="o">.</span><span class="n">dtype</span>
+<span class="n">actual</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(10,)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inp</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="n">actual</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># requires grad will make sure that gradients will be automatically calculated for the tensor</span>
+<span class="c1"># Define the datatypes to match the input and output tesnsor</span>
+<span class="n">wt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wt</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span><span class="n">bias</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(torch.float32, torch.float32)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inp</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">inp</span> <span class="o">@</span> <span class="n">wt</span><span class="o">.</span><span class="n">t</span><span class="p">()</span> <span class="o">+</span> <span class="n">bias</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="n">pred</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="o">*</span><span class="mi">100</span> <span class="p">,</span> <span class="n">inp</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(tensor([12.7866, 13.0640, 13.3413, 13.6186, 13.8960, 14.1733, 14.4507, 14.7280,
+         15.0053, 15.2827], grad_fn=&lt;AddBackward0&gt;),
+ &#39;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++&#39;,
+ tensor([[ 58.0000,  63.5000,  69.0000,  74.5000,  80.0000,  85.5000],
+         [ 91.0000,  96.5000, 102.0000, 107.5000, 113.0000, 118.5000],
+         [124.0000, 129.5000, 135.0000, 140.5000, 146.0000, 151.5000],
+         [157.0000, 162.5000, 168.0000, 173.5000, 179.0000, 184.5000],
+         [190.0000, 195.5000, 201.0000, 206.5000, 212.0000, 217.5000],
+         [223.0000, 228.5000, 234.0000, 239.5000, 245.0000, 250.5000],
+         [256.0000, 261.5000, 267.0000, 272.5000, 278.0000, 283.5000],
+         [289.0000, 294.5000, 300.0000, 305.5000, 311.0000, 316.5000],
+         [322.0000, 327.5000, 333.0000, 338.5000, 344.0000, 349.5000],
+         [355.0000, 360.5000, 366.0000, 371.5000, 377.0000, 382.5000]]))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mse</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">):</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t2</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">diff</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span> <span class="o">/</span> <span class="n">diff</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+
+<span class="c1"># calculation of loss considering random wts and bias is initialized</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span><span class="n">actual</span><span class="p">)</span>
+<span class="n">loss</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor(56038804., grad_fn=&lt;DivBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">wt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wt</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor([-0.8699,  0.5496, -0.3244,  0.2490,  0.4581, -0.0539],
+       requires_grad=True)
+tensor([-3242695.5000, -3324415.5000, -3406136.0000, -3487856.2500,
+        -3569576.5000, -3651296.7500])
+tensor([-14858.2334])
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># -ve gradient - decrease wt - more loss</span>
+
+<span class="c1"># +ve gradient - increase wt - more loss</span>
+<span class="c1"># +ve gradient - decrease wt - less loss</span>
+
+<span class="c1"># Increase and decrease of loss is proportional to the gradient of the loss</span>
+
+<span class="c1"># torch.no_grad that the gradient is not calculated while updating the wt&#39;s and the bias</span>
+
+<span class="c1"># 1e-5 is the learning rate to make sure we move slowly towards the minimum of cost function</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">wt</span> <span class="o">-=</span> <span class="n">wt</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-5</span>
+    <span class="n">bias</span> <span class="o">-=</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-5</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor(56038804., grad_fn=&lt;DivBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wt</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+<span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([0.])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+
+<span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor([14930.9082, 21756.2363, 28581.5684, 35406.8984, 42232.2305, 49057.5586,
+        55882.8867, 62708.2148, 69533.5469, 76358.8672],
+       grad_fn=&lt;AddBackward0&gt;)
+tensor(1.8084e+09, grad_fn=&lt;DivBackward0&gt;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">wt</span> <span class="o">-=</span> <span class="n">wt</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-5</span>
+    <span class="n">bias</span> <span class="o">-=</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-5</span>
+    <span class="n">wt</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+    <span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">wt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bias</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor([31.5571, 33.7937, 33.7370, 35.1276, 36.1538, 36.4590],
+       requires_grad=True)
+tensor([0.2911], requires_grad=True)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor(1.8084e+09, grad_fn=&lt;DivBackward0&gt;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">wt</span> <span class="o">-=</span> <span class="n">wt</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-8</span>
+        <span class="n">bias</span> <span class="o">-=</span> <span class="n">bias</span><span class="o">.</span><span class="n">grad</span> <span class="o">*</span> <span class="mf">1e-8</span>
+        <span class="n">wt</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+        <span class="n">bias</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor(1.1706e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.1551e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.1398e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.1247e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.1098e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0951e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0806e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0663e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0523e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0384e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0247e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(1.0112e+08, grad_fn=&lt;DivBackward0&gt;)
+tensor(99783600., grad_fn=&lt;DivBackward0&gt;)
+tensor(98469440., grad_fn=&lt;DivBackward0&gt;)
+tensor(97173368., grad_fn=&lt;DivBackward0&gt;)
+tensor(95895144., grad_fn=&lt;DivBackward0&gt;)
+tensor(94634504., grad_fn=&lt;DivBackward0&gt;)
+tensor(93391240., grad_fn=&lt;DivBackward0&gt;)
+tensor(92165096., grad_fn=&lt;DivBackward0&gt;)
+tensor(90955816., grad_fn=&lt;DivBackward0&gt;)
+tensor(89763208., grad_fn=&lt;DivBackward0&gt;)
+tensor(88587008., grad_fn=&lt;DivBackward0&gt;)
+tensor(87426992., grad_fn=&lt;DivBackward0&gt;)
+tensor(86282960., grad_fn=&lt;DivBackward0&gt;)
+tensor(85154672., grad_fn=&lt;DivBackward0&gt;)
+tensor(84041944., grad_fn=&lt;DivBackward0&gt;)
+tensor(82944512., grad_fn=&lt;DivBackward0&gt;)
+tensor(81862200., grad_fn=&lt;DivBackward0&gt;)
+tensor(80794792., grad_fn=&lt;DivBackward0&gt;)
+tensor(79742064., grad_fn=&lt;DivBackward0&gt;)
+tensor(78703856., grad_fn=&lt;DivBackward0&gt;)
+tensor(77679928., grad_fn=&lt;DivBackward0&gt;)
+tensor(76670096., grad_fn=&lt;DivBackward0&gt;)
+tensor(75674192., grad_fn=&lt;DivBackward0&gt;)
+tensor(74691976., grad_fn=&lt;DivBackward0&gt;)
+tensor(73723280., grad_fn=&lt;DivBackward0&gt;)
+tensor(72767904., grad_fn=&lt;DivBackward0&gt;)
+tensor(71825728., grad_fn=&lt;DivBackward0&gt;)
+tensor(70896488., grad_fn=&lt;DivBackward0&gt;)
+tensor(69980080., grad_fn=&lt;DivBackward0&gt;)
+tensor(69076256., grad_fn=&lt;DivBackward0&gt;)
+tensor(68184896., grad_fn=&lt;DivBackward0&gt;)
+tensor(67305792., grad_fn=&lt;DivBackward0&gt;)
+tensor(66438804., grad_fn=&lt;DivBackward0&gt;)
+tensor(65583744., grad_fn=&lt;DivBackward0&gt;)
+tensor(64740472., grad_fn=&lt;DivBackward0&gt;)
+tensor(63908812., grad_fn=&lt;DivBackward0&gt;)
+tensor(63088596., grad_fn=&lt;DivBackward0&gt;)
+tensor(62279680., grad_fn=&lt;DivBackward0&gt;)
+tensor(61481900., grad_fn=&lt;DivBackward0&gt;)
+tensor(60695092., grad_fn=&lt;DivBackward0&gt;)
+tensor(59919096., grad_fn=&lt;DivBackward0&gt;)
+tensor(59153812., grad_fn=&lt;DivBackward0&gt;)
+tensor(58399072., grad_fn=&lt;DivBackward0&gt;)
+tensor(57654720., grad_fn=&lt;DivBackward0&gt;)
+tensor(56920600., grad_fn=&lt;DivBackward0&gt;)
+tensor(56196588., grad_fn=&lt;DivBackward0&gt;)
+tensor(55482560., grad_fn=&lt;DivBackward0&gt;)
+tensor(54778368., grad_fn=&lt;DivBackward0&gt;)
+tensor(54083864., grad_fn=&lt;DivBackward0&gt;)
+tensor(53398920., grad_fn=&lt;DivBackward0&gt;)
+tensor(52723412., grad_fn=&lt;DivBackward0&gt;)
+tensor(52057192., grad_fn=&lt;DivBackward0&gt;)
+tensor(51400168., grad_fn=&lt;DivBackward0&gt;)
+tensor(50752156., grad_fn=&lt;DivBackward0&gt;)
+tensor(50113088., grad_fn=&lt;DivBackward0&gt;)
+tensor(49482808., grad_fn=&lt;DivBackward0&gt;)
+tensor(48861220., grad_fn=&lt;DivBackward0&gt;)
+tensor(48248176., grad_fn=&lt;DivBackward0&gt;)
+tensor(47643592., grad_fn=&lt;DivBackward0&gt;)
+tensor(47047312., grad_fn=&lt;DivBackward0&gt;)
+tensor(46459252., grad_fn=&lt;DivBackward0&gt;)
+tensor(45879276., grad_fn=&lt;DivBackward0&gt;)
+tensor(45307292., grad_fn=&lt;DivBackward0&gt;)
+tensor(44743192., grad_fn=&lt;DivBackward0&gt;)
+tensor(44186856., grad_fn=&lt;DivBackward0&gt;)
+tensor(43638184., grad_fn=&lt;DivBackward0&gt;)
+tensor(43097064., grad_fn=&lt;DivBackward0&gt;)
+tensor(42563388., grad_fn=&lt;DivBackward0&gt;)
+tensor(42037064., grad_fn=&lt;DivBackward0&gt;)
+tensor(41517988., grad_fn=&lt;DivBackward0&gt;)
+tensor(41006060., grad_fn=&lt;DivBackward0&gt;)
+tensor(40501188., grad_fn=&lt;DivBackward0&gt;)
+tensor(40003256., grad_fn=&lt;DivBackward0&gt;)
+tensor(39512176., grad_fn=&lt;DivBackward0&gt;)
+tensor(39027864., grad_fn=&lt;DivBackward0&gt;)
+tensor(38550220., grad_fn=&lt;DivBackward0&gt;)
+tensor(38079148., grad_fn=&lt;DivBackward0&gt;)
+tensor(37614560., grad_fn=&lt;DivBackward0&gt;)
+tensor(37156376., grad_fn=&lt;DivBackward0&gt;)
+tensor(36704496., grad_fn=&lt;DivBackward0&gt;)
+tensor(36258836., grad_fn=&lt;DivBackward0&gt;)
+tensor(35819320., grad_fn=&lt;DivBackward0&gt;)
+tensor(35385848., grad_fn=&lt;DivBackward0&gt;)
+tensor(34958348., grad_fn=&lt;DivBackward0&gt;)
+tensor(34536732., grad_fn=&lt;DivBackward0&gt;)
+tensor(34120928., grad_fn=&lt;DivBackward0&gt;)
+tensor(33710836., grad_fn=&lt;DivBackward0&gt;)
+tensor(33306410., grad_fn=&lt;DivBackward0&gt;)
+tensor(32907540., grad_fn=&lt;DivBackward0&gt;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">mse</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">actual</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor(32514160., grad_fn=&lt;DivBackward0&gt;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">preds</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([ 3773.3501,  5489.8921,  7206.4336,  8922.9756, 10639.5166, 12356.0586,
+        14072.6006, 15789.1426, 17505.6836, 19222.2246],
+       grad_fn=&lt;AddBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">actual</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([6000.0000, 6320.7002, 6641.4004, 6962.1006, 7282.8008, 7603.5010,
+        7924.2012, 8244.9014, 8565.6016, 8886.3018])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/Unified-AI/2022/08/14/_NN_FROM_SCRATCH_PYTORCH.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/Unified-AI/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/Unified-AI/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/Unified-AI/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Blogs about Deeplearning and ML</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/Unified-AI/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/Unified-AI/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
